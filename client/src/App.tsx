@@ -8,31 +8,9 @@ import { Register, SignIn } from "@/pages/AuthForms";
 import { useAuth } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
-function PublicAuthAccess() {
-  const [location] = useLocation();
-  const { isAuthenticated, user } = useAuth();
-  if (location !== "/") return null;
-  
-  if (isAuthenticated && user) {
-    return (
-      <Link className="public-auth-access" href="/dashboard">
-        {user.name} <span>→ Dashboard</span>
-      </Link>
-    );
-  }
-
-  return (
-    <Link className="public-auth-access" href="/sign-in">
-      Register / Sign in <span>↗</span>
-    </Link>
-  );
-}
-
 function MainRoutes() {
   return (
-    <>
-      <PublicAuthAccess/>
-      <Switch>
+    <Switch>
         <Route path="/" component={Home}/>
         <Route path="/sign-in" component={SignIn}/>
         <Route path="/register" component={Register}/>
@@ -67,7 +45,6 @@ function MainRoutes() {
         <Route path="/404" component={NotFound}/>
         <Route component={NotFound}/>
       </Switch>
-    </>
   );
 }
 

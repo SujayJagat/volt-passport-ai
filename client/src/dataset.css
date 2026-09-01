@@ -149,15 +149,34 @@
 }
 @media (max-width: 480px) {
   .dataset-prediction {
-    padding: 20px;
+    padding: 18px 14px;
   }
   .dataset-details-grid {
     grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .dataset-metric-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .dataset-metric-grid > div {
+    padding: 12px 10px;
+  }
+  .dataset-metric-grid strong {
+    font-size: 15px;
   }
   .dataset-prediction-head {
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
   .dataset-grade {
     font-size: 48px;
   }
 }
+@media (max-width: 360px) {
+  .dataset-metric-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

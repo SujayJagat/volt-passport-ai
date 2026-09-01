@@ -91,12 +91,12 @@ export function Dashboard() {
 
       <section className="portal-content">
         <div className="portal-heading">
-          <div>
+          <div className="portal-heading-text">
             <span className="signal-kicker">
               <span className="signal-line"/> PRIVATE OPERATOR WORKSPACE
             </span>
             <h1>Keep your battery<br/><em>decision in view.</em></h1>
-            <p>
+            <p className="portal-intro-copy">
               Authenticated workspace for <b>{user?.name || "Operator"}</b> ({user?.email}). You have access to only your claimed battery packs and verified digital passports.
             </p>
             <p className={`dataset-status ${error ? "error" : ""}`}>
@@ -113,79 +113,49 @@ export function Dashboard() {
               )}
             </p>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-end" }}>
-            <div style={{ display: "flex", gap: "10px" }}>
-              <button
-                type="button"
-                className="button button-outline"
-                onClick={() => setIsAddModalOpen(true)}
-                style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "11px" }}
-              >
-                <Plus size={13}/> Add Battery
-              </button>
-              <Link className="button button-solid" href="/analyzer">
-                Open analyzer <ArrowUpRight size={14}/>
-              </Link>
-            </div>
+          <div className="portal-head-actions">
+            <button
+              type="button"
+              className="button button-outline"
+              onClick={() => setIsAddModalOpen(true)}
+            >
+              <Plus size={13}/> Add Battery
+            </button>
+            <Link className="button button-solid" href="/analyzer">
+              Open analyzer <ArrowUpRight size={14}/>
+            </Link>
           </div>
         </div>
 
         {/* Claimed Battery Fleet Selector Bar */}
-        <div
-          style={{
-            marginTop: "20px",
-            padding: "16px 20px",
-            background: "rgba(10, 23, 25, 0.85)",
-            backdropFilter: "blur(16px)",
-            border: "1px solid rgba(0, 245, 212, 0.25)",
-            borderRadius: "8px",
-            boxShadow: "0 12px 36px rgba(0, 0, 0, 0.35)",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: "12px",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-            <span style={{ fontSize: "12px", color: "#b5c9c5", fontFamily: "monospace", display: "inline-flex", alignItems: "center", gap: "6px" }}>
+        <div className="fleet-selector-card">
+          <div className="fleet-selector-left">
+            <span className="fleet-label">
               <ShieldCheck size={15} style={{ color: "var(--cyan)" }}/> MY CLAIMED BATTERIES ({claimedBatteries.length}):
             </span>
-            {claimedBatteries.length === 0 ? (
-              <span style={{ fontSize: "12px", color: "#78918f", fontStyle: "italic" }}>
-                No battery packs claimed yet.
-              </span>
-            ) : (
-              claimedBatteries.map(batId => (
-                <button
-                  key={batId}
-                  type="button"
-                  onClick={() => selectBatteryId(batId)}
-                  style={{
-                    padding: "6px 14px",
-                    background: activeRecord?.batteryId === batId ? "rgba(0, 245, 212, 0.2)" : "rgba(5, 14, 17, 0.8)",
-                    border: activeRecord?.batteryId === batId ? "1px solid var(--cyan)" : "1px solid rgba(180, 224, 220, 0.15)",
-                    borderRadius: "4px",
-                    color: activeRecord?.batteryId === batId ? "var(--cyan)" : "#b5c9c5",
-                    fontSize: "12px",
-                    fontFamily: "monospace",
-                    cursor: "pointer",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    transition: "all 0.18s ease",
-                  }}
-                >
-                  <Zap size={11}/> {batId} {activeRecord?.batteryId === batId ? "★ ACTIVE" : ""}
-                </button>
-              ))
-            )}
+            <div className="fleet-pills-wrap">
+              {claimedBatteries.length === 0 ? (
+                <span className="fleet-empty-text">
+                  No battery packs claimed yet.
+                </span>
+              ) : (
+                claimedBatteries.map(batId => (
+                  <button
+                    key={batId}
+                    type="button"
+                    onClick={() => selectBatteryId(batId)}
+                    className={`fleet-pill ${activeRecord?.batteryId === batId ? "active" : ""}`}
+                  >
+                    <Zap size={11}/> {batId} {activeRecord?.batteryId === batId ? "★ ACTIVE" : ""}
+                  </button>
+                ))
+              )}
+            </div>
           </div>
           <button
             type="button"
-            className="button button-outline"
+            className="button button-outline fleet-claim-btn"
             onClick={() => setIsAddModalOpen(true)}
-            style={{ fontSize: "11px", padding: "6px 12px" }}
           >
             <Plus size={12}/> Claim New Pack
           </button>
@@ -214,17 +184,17 @@ export function Dashboard() {
                 ? `Matched to verified batch ${activeRecord.batchId}. Telemetry parameters and ML regression predictions are synchronized across all modules.`
                 : "No battery pack active. Click '+ Add Battery' above to pair your battery via QR code or battery ID."}
             </p>
-            <div style={{ display: "flex", gap: "16px", alignItems: "center", marginTop: "18px" }}>
+            <div className="portal-card-actions">
               <Link href="/passport" className="text-link">Review detailed passport <ArrowUpRight size={14}/></Link>
               <button
                 type="button"
                 onClick={handleQuickSavePassport}
                 disabled={savingPassport || !activeRecord}
-                style={{ background: "none", border: 0, color: "var(--cyan)", cursor: "pointer", fontSize: "12px", fontFamily: "monospace", display: "inline-flex", alignItems: "center", gap: "6px" }}
+                className="portal-save-db-btn"
               >
                 <Plus size={13}/> Save to DB
               </button>
-              {saveMessage && <span style={{ fontSize: "11px", color: "var(--emerald)", fontFamily: "monospace" }}>{saveMessage}</span>}
+              {saveMessage && <span className="portal-save-msg">{saveMessage}</span>}
             </div>
           </article>
 

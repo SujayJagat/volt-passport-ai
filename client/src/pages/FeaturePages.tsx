@@ -190,21 +190,8 @@ export function AnalyzerPage() {
           </div>
 
           {/* Status banner */}
-          <div
-            style={{
-              margin: "16px 0 24px",
-              padding: "12px 16px",
-              background: isManualSimulation ? "rgba(245, 158, 11, 0.12)" : "rgba(0, 245, 212, 0.08)",
-              border: isManualSimulation ? "1px solid rgba(245, 158, 11, 0.35)" : "1px solid rgba(0, 245, 212, 0.25)",
-              borderRadius: "6px",
-              fontSize: "12px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              gap: "10px",
-            }}
-          >
-            <span style={{ color: isManualSimulation ? "#fbbf24" : "#c0d8d3", fontFamily: "monospace" }}>
+          <div className={`analyzer-status-banner ${isManualSimulation ? "is-simulation" : "is-locked"}`}>
+            <span className="analyzer-status-text">
               {isManualSimulation
                 ? "⚠️ Manual Simulation Active: Sliders unlocked for testing & failure simulation."
                 : `🔒 Database Locked: Showing authentic telemetry for ${activeRecord?.batteryId || "your claimed pack"}.`}
@@ -213,19 +200,7 @@ export function AnalyzerPage() {
               <button
                 type="button"
                 onClick={resetToAuthenticTelemetry}
-                style={{
-                  background: "none",
-                  border: 0,
-                  color: "var(--cyan)",
-                  fontSize: "11px",
-                  fontFamily: "monospace",
-                  cursor: "pointer",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "4px",
-                  whiteSpace: "nowrap",
-                  textDecoration: "underline",
-                }}
+                className="analyzer-reset-btn"
               >
                 <RotateCcw size={11}/> Reset
               </button>
@@ -285,22 +260,21 @@ export function AnalyzerPage() {
             />
           </div>
           
-          <div style={{ display: "flex", gap: "12px", marginTop: "32px", flexWrap: "wrap" }}>
+          <div className="analyzer-action-row">
             <button
               type="button"
-              className="button button-solid"
+              className="button button-solid analyzer-save-btn"
               onClick={handleSaveAssessment}
               disabled={savingAssessment}
-              style={{ flex: 1, justifyContent: "center" }}
             >
               <Save size={14}/> {savingAssessment ? "Saving..." : "Log to Database"}
             </button>
-            <Link className="button button-outline" href="/passport">
+            <Link className="button button-outline analyzer-pass-btn" href="/passport">
               View passport <ArrowUpRight size={14}/>
             </Link>
           </div>
           {saveStatus && (
-            <p style={{ margin: "12px 0 0", color: "var(--emerald)", fontSize: "12px", fontFamily: "monospace" }}>
+            <p className="analyzer-save-status">
               {saveStatus}
             </p>
           )}
@@ -309,61 +283,36 @@ export function AnalyzerPage() {
         {/* Live Diagnostics Card */}
         <aside className="feature-diagnostic" style={{ borderRadius: "8px" }}>
           <span className="small-label"><Activity size={13}/> LIVE ML DIAGNOSTIC</span>
-          <p className="diagnostic-model trained" style={{ margin: "8px 0 20px" }}>{assessment.modelLabel}</p>
+          <p className="diagnostic-model trained">{assessment.modelLabel}</p>
 
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "24px",
-              padding: "24px 0",
-              borderBottom: "1px solid rgba(180, 224, 220, 0.12)",
-              width: "100%",
-            }}
-          >
+          <div className="diagnostic-hero-card">
             {/* Glowing radial score ring */}
             <div
-              className="score-ring"
+              className="score-ring diagnostic-score-ring"
               style={{
                 background: `conic-gradient(var(--cyan) ${assessment.soh * 3.6}deg, #132427 0deg)`,
-                width: "100px",
-                height: "100px",
-                borderRadius: "50%",
-                display: "grid",
-                placeItems: "center",
-                flexShrink: 0,
-                boxShadow: "0 0 24px rgba(0, 245, 212, 0.25)",
               }}
             >
-              <div
-                style={{
-                  width: "78px",
-                  height: "78px",
-                  borderRadius: "50%",
-                  background: "#081316",
-                  display: "grid",
-                  placeItems: "center",
-                }}
-              >
-                <b style={{ font: "700 28px/1 var(--mono, monospace)", color: "var(--cyan)", letterSpacing: "-0.05em" }}>
+              <div className="score-ring-inner">
+                <b className="score-grade-text">
                   {assessment.grade}
                 </b>
-                <small style={{ font: "9px var(--mono, monospace)", color: "#78918f", marginTop: "-6px" }}>GRADE</small>
+                <small className="score-grade-sub">GRADE</small>
               </div>
             </div>
 
-            <div>
+            <div className="diagnostic-status-wrap">
               <span className="small-label">CURRENT STATUS</span>
-              <strong style={{ display: "block", fontSize: "18px", color: "#eef5f3", margin: "4px 0" }}>
+              <strong className="diagnostic-status-title">
                 {assessment.grade === "A" ? "EV Ready" : assessment.grade === "B" ? "Second-Life Ready" : "Intervention Required"}
               </strong>
-              <small style={{ color: "#8fa5a1", fontSize: "12px" }}>
+              <small className="diagnostic-status-sub">
                 {rfModelLoaded ? "100-Tree scikit-learn RF Model" : "Live Baseline Inference"}
               </small>
             </div>
           </div>
 
-          <div className="diagnostic-metrics" style={{ marginTop: "20px" }}>
+          <div className="diagnostic-metrics">
             <Metric label="State of health" value={`${assessment.soh.toFixed(1)}%`}/>
             <Metric
               label={assessment.predictionInterval ? "95% prediction interval" : "Model status"}
@@ -373,7 +322,7 @@ export function AnalyzerPage() {
             <Metric label="Thermal stress" value={assessment.thermal}/>
           </div>
 
-          <Link href="/explainability" className="text-link" style={{ marginTop: "24px" }}>
+          <Link href="/explainability" className="text-link diagnostic-explain-link">
             Why this result? <ArrowUpRight size={13}/>
           </Link>
         </aside>
