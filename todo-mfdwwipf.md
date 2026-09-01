@@ -1,0 +1,26 @@
+# Project TODO
+
+- [x] Audit the existing local battery-health estimator, routes, and reusable UI components.
+- [x] Define a browser-local ML workflow that trains only on user-supplied labelled battery telemetry and clearly states its limitations.
+- [x] Add CSV parsing and validation for cycles, temperature, voltage, resistance, fast-charge ratio, and labelled state of health.
+- [x] Train, store, and apply a regularized local linear regression model with a holdout validation summary and prediction interval.
+- [x] Add an explainability panel that identifies the telemetry features driving a trained-model prediction.
+- [x] Add unit tests for CSV validation, safe telemetry handling, training, prediction bounds, confidence calibration, and risk classification.
+- [x] Verify the updated analyzer and digital passport across desktop and mobile layouts.
+- [x] Save a checkpoint containing the completed ML predictor feature.
+- [x] Add regression tests for corrupt browser storage and trained-model grade/status classification.
+- [x] Capture and review the digital passport at a mobile viewport.
+- [x] Profile the supplied battery CSV, document valid columns, target labels, Battery ID coverage, and missing-value patterns.
+- [x] Map the dataset schema to registration fields, Battery ID lookup, and a dataset-grounded battery profile.
+- [x] Train and validate a model using the supplied CSV and keep its data processing local to the browser where feasible.
+- [x] Pre-fill telemetry and display matched dataset details when a registered user enters a recognised Battery ID.
+- [x] Add detailed predicted state-of-health, risk, and lifecycle views based on the available dataset fields.
+- [x] Add unit tests for dataset parsing, Battery ID matching, and prediction fallbacks.
+- [x] Verify registration, known/unknown Battery ID, and detailed prediction flows on desktop and mobile.
+- [x] Save a checkpoint for the dataset-trained Battery ID experience.
+- [x] Add unit coverage for unmatched Battery ID and unavailable dataset-model prediction fallbacks.
+- [x] Verify known and unknown Battery ID registration states on a mobile viewport.
+- [x] Add explicit unit coverage for no-active-record and no-model prediction fallback states.
+- [x] Exercise known and unknown Battery ID submission states at a mobile viewport.
+- [x] Add explicit valid-model/no-active-record prediction fallback coverage.
+- [x] Submit recognised and unrecognised Battery IDs through the actual mobile registration form.

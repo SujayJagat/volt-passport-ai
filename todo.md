@@ -1,0 +1,88 @@
+# VoltPassport AI persistence upgrade
+
+- [x] Read the full-stack project guidance and confirm available database/auth primitives.
+- [x] Upgrade the static project to the database-backed full-stack template.
+- [x] Define persistent user, battery, telemetry snapshot, and session/workspace data models.
+- [x] Implement safe server-side persistence and retrieval endpoints.
+- [x] Connect sign-in and workspace state to the persistent data layer.
+- [x] Verify persistence across reloads and authenticated sessions.
+- [x] Save a checkpoint and deliver the updated project version.
+- [x] Fix Home runtime crash: `useAuth` is referenced without being defined after the full-stack upgrade.
+- [x] Add endpoint-level tests for battery workspace load/save and database error paths.
+- [x] Hydrate and persist workspace settings such as live simulation and active view.
+- [x] Add a visible sign-in gate for persisted workspace features with logout behavior.
+- [x] Verify an authenticated save-and-reload persistence flow end to end.
+- [x] Hydrate active workspace view from the database and persist real view changes.
+- [x] Gate persistence-only workspace controls when signed out while keeping public storytelling available.
+- [x] Perform a browser-level authenticated save, reload, and restore verification.
+- [x] Inspect pasted_content_2.txt and identify requested VoltPassport AI changes.
+- [x] Implement the applicable requirements from pasted_content_2.txt.
+- [x] Verify and checkpoint the resulting project updates.
+- [x] Add OAuth-aware login and signup entry pages without introducing a second credential system.
+- [x] Add protected dashboard, profile, and settings routes with responsive navigation.
+- [x] Connect authenticated dashboard actions to the existing persisted battery workspace.
+- [x] Verify the new routes and save an updated checkpoint.
+- [x] Add mobile-responsive protected navigation with a menu control.
+- [x] Add meaningful profile/settings actions and recovery/support UX for the OAuth flow.
+- [x] Connect dashboard quick actions to persisted workspace operations.
+- [x] Verify protected-route redirects and authenticated route behavior end to end.
+- [x] Save a final checkpoint for the multi-page OAuth architecture.
+- [x] Inspect the supplied source UI and select a self-contained feature for React integration.
+- [x] Extract the feature dependencies and integrate it into the existing VoltPassport experience.
+- [x] Verify the extracted feature and save an updated project checkpoint.
+- [x] Verify the protected digital passport route with an authenticated session.
+- [x] Save and deliver the post-extraction project checkpoint.
+- [x] Diagnose and resolve the Manus OAuth sign-in 403 error.
+- [x] Verify authenticated access to the protected digital passport route after the OAuth correction.
+- [x] Save a post-fix checkpoint and deliver the corrected project version.
+- [x] Map the home-page storytelling sections to dedicated feature routes.
+- [x] Build dedicated feature pages for the landing-page sections.
+- [x] Add dashboard buttons and navigation paths to the new pages.
+- [x] Add a consistent responsive footer to the landing page and all feature routes.
+- [x] Verify all routes and save the updated project checkpoint.
+- [x] Re-verify all affected application routes after the shared-footer and dedicated-page update.
+- [x] Save and deliver the post-update project checkpoint.
+- [x] Confirm the shared footer and navigation render on the authenticated dashboard, profile, settings, and passport pages.
+- [x] Save and deliver the dedicated-page and shared-footer checkpoint.
+- [x] Add an in-app recovery state for blocked or unavailable OAuth handoffs without weakening authentication.
+- [x] Verify the protected passport route in an authenticated session when the external OAuth portal is available.
+- [x] Save and deliver the OAuth mitigation checkpoint.
+- [x] Confirm the protected passport page through a real OAuth session once the external identity portal is reachable.
+- [x] Save the final OAuth-mitigation checkpoint and deliver the updated project version.
+- [x] Verify the protected passport route in the user’s authenticated project-preview session and document the isolated-browser limitation. The automated browser maintains an isolated session and can redirect to login independently of the authenticated project preview.
+- [x] Audit all authentication, database, server, and tRPC dependencies.
+- [x] Remove backend source, database schema, migrations, server packages, and authentication flows.
+- [x] Replace persisted workspace calls with frontend-only local state and browser storage.
+- [x] Simplify routes and navigation for public frontend-only access.
+- [x] Verify the standalone frontend and save the simplified project checkpoint.
+- [x] Re-verify all public frontend-only routes after backend removal.
+- [x] Save and deliver the standalone frontend checkpoint.
+- [x] Save and deliver the frontend-only VoltPassport AI checkpoint.
+- [x] Diagnose why the cinematic frame sequence is not visible on the landing page.
+- [x] Add resilient frame playback, preloading feedback, and a visual fallback.
+- [x] Enhance the landing-page UI hierarchy, atmosphere, and responsive behavior.
+- [x] Verify cinematic playback and save the updated frontend checkpoint.
+- [x] Confirm multiple uploaded cinematic frames resolve for scroll-driven playback.
+- [x] Save and deliver the cinematic frame and UI enhancement checkpoint.
+- [x] Save and deliver the post-fix cinematic frontend checkpoint.
+- [x] Add public frontend-only Sign In and Register routes without backend integration.
+- [x] Build the requested sign-in form with email and password fields.
+- [x] Build the requested registration form with name, battery ID, email, password, and confirmation fields.
+- [x] Add a top-right Register / Sign In control and cross-links between forms.
+- [x] Verify the new public auth-form pages and save an updated checkpoint.
+- [x] Save and deliver the frontend-only Sign In/Register checkpoint.
+- [x] Replace generic prototype and infrastructure copy with VoltPassport component explanations.
+- [x] Fix the Register / Sign in button overlap with top navigation links.
+- [x] Reflow dashboard navigation and content so elements remain separated across breakpoints.
+- [x] Verify revised copy and responsive layouts, then save an updated checkpoint.
+- [x] Save and deliver the VoltPassport copy and layout correction checkpoint.
+- [x] Inspect the supplied frames2.0 asset and map it to the home page’s 02 / Measure section.
+- [x] Prepare and integrate the asset as a Measure-section background.
+- [x] Tune overlays and responsive positioning to preserve telemetry legibility.
+- [x] Verify the Measure background integration and save an updated checkpoint.
+- [x] Reassess the post-merge Measure section and preserve the newer dataset and ML interfaces.
+- [x] Integrate the uploaded frames2.0 background into the current merged Measure section.
+- [x] Verify the merged Measure section and save the updated project checkpoint.
+- [x] Inspect why the frames2.0 imagery is too subdued in the current Measure section.
+- [x] Increase Measure-frame visibility while preserving readable telemetry content on desktop and mobile.
+- [x] Verify the visibility correction and save an updated checkpoint.
