@@ -137,16 +137,16 @@ export default function DigitalPassport() {
                   <i key={index} className={(index * 7 + (activeRecord?.cycle ?? telemetry.cycles)) % 5 < 2 ? "on" : ""}/>
                 ))}
               </div>
-              <div className="source-integrity-content">
+              <div>
                 <span className="small-label">PASSPORT HASH SIGNATURE</span>
-                <code className="source-hash-code" style={{ borderRadius: "4px", wordBreak: "break-all", overflowWrap: "anywhere" }}>{hash}</code>
-                <p className="source-integrity-meta">
+                <code style={{ borderRadius: "4px" }}>{hash}</code>
+                <p>
                   <Check size={14}/> Verified signature <span>{isFromDb ? "DATABASE BACKED" : "ON-DEVICE RECORD"}</span>
                 </p>
               </div>
             </div>
 
-            <div className="source-passport-actions">
+            <div className="source-passport-actions" style={{ gap: "10px" }}>
               <button type="button" className="button button-solid" onClick={copy}>
                 {copied ? <Check size={14}/> : <Copy size={14}/>} {copied ? "Hash copied" : "Copy passport hash"}
               </button>

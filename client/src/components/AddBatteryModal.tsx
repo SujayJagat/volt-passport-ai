@@ -74,14 +74,20 @@ export default function AddBatteryModal({ isOpen, onClose }: AddBatteryModalProp
 
   return (
     <div
-      className="modal-backdrop"
       style={{
-        padding: "16px",
+        position: "fixed",
+        inset: 0,
+        zIndex: 9999,
+        background: "rgba(1, 8, 9, 0.85)",
+        backdropFilter: "blur(8px)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "20px",
       }}
       onClick={onClose}
     >
       <div
-        className="add-battery-dialog"
         style={{
           width: "100%",
           maxWidth: "480px",
@@ -90,8 +96,6 @@ export default function AddBatteryModal({ isOpen, onClose }: AddBatteryModalProp
           borderRadius: "8px",
           boxShadow: "0 25px 60px rgba(0,0,0,0.8)",
           overflow: "hidden",
-          maxHeight: "90vh",
-          overflowY: "auto",
         }}
         onClick={e => e.stopPropagation()}
       >
@@ -276,22 +280,22 @@ export default function AddBatteryModal({ isOpen, onClose }: AddBatteryModalProp
                   </small>
                 </div>
 
-                <div style={{ display: "flex", gap: "8px", marginTop: "8px", flexWrap: "wrap", justifyContent: "center" }}>
+                <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
                   <button
                     type="button"
                     className="button button-solid"
                     onClick={() => handleSimulateQRScan("BAT0002")}
                     disabled={loading}
-                    style={{ fontSize: "11px", padding: "8px 12px", flex: "1 1 180px", justifyContent: "center" }}
+                    style={{ fontSize: "11px", padding: "6px 12px" }}
                   >
-                    <Camera size={13}/> Scan Pack (BAT0002)
+                    <Camera size={13}/> Scan Battery Pack (BAT0002)
                   </button>
                   <button
                     type="button"
                     className="button button-outline"
                     onClick={() => handleSimulateQRScan("BAT0042")}
                     disabled={loading}
-                    style={{ fontSize: "11px", padding: "8px 12px", flex: "1 1 180px", justifyContent: "center" }}
+                    style={{ fontSize: "11px", padding: "6px 12px" }}
                   >
                     <Upload size={13}/> Scan Pack (BAT0042)
                   </button>

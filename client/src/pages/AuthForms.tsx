@@ -1,7 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Activity, ArrowLeft, ArrowUpRight, CheckCircle2, Eye, EyeOff, Gauge, KeyRound, Loader2, UserPlus } from "lucide-react";
 import { Link, useLocation } from "wouter";
-import AppHeader from "@/components/AppHeader";
 import AppFooter from "@/components/AppFooter";
 import { useBatteryDataset } from "@/contexts/BatteryDatasetContext";
 import { useAuth } from "@/contexts/AuthContext";
@@ -39,7 +38,19 @@ function AuthShell({ eyebrow, title, description, children }: { eyebrow: string;
       <div className="hero-orb hero-orb-one" style={{ opacity: 0.35, pointerEvents: "none" }}/>
       <div className="hero-orb hero-orb-two" style={{ opacity: 0.25, pointerEvents: "none" }}/>
 
-      <AppHeader/>
+      <header className="top-nav" style={{ position: "sticky", top: 0, zIndex: 50, background: "rgba(3, 7, 9, 0.75)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(0, 245, 212, 0.15)" }}>
+        <Link className="wordmark" href="/">
+          <span className="mark">
+            <svg viewBox="0 0 21 21" width="21" height="21" xmlns="http://www.w3.org/2000/svg">
+              <text x="10.5" y="15" fill="#00f5d4" fontFamily="monospace" fontSize="14" textAnchor="middle">V</text>
+            </svg>
+          </span>
+          <span>VOLT<span className="wordmark-muted">PASSPORT</span><b> AI</b></span>
+        </Link>
+        <Link href="/" className="nav-button" style={{ borderRadius: "4px", padding: "6px 14px", fontSize: "11px" }}>
+          <ArrowLeft size={13}/> Back to Home
+        </Link>
+      </header>
 
       <section className="local-auth-layout">
         <div className="local-auth-intro">
