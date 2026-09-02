@@ -34,6 +34,7 @@ import {
   type DbPassport,
   type DbTelemetryAssessment,
 } from "@/lib/pocketbase";
+import { generatePassportFingerprint } from "@/lib/passportCrypto";
 import { useAuthSafe } from "./AuthContext";
 
 export type BatteryDatasetContextValue = {
@@ -311,6 +312,23 @@ export function BatteryDatasetProvider({ children }: { children: React.ReactNode
   const saveCurrentPassport = useCallback(async (notes?: string) => {
     try {
       const batId = activeRecord?.batteryId || activeBatteryId || "VPA-CUSTOM";
+      const { hash } = await generatePassportFingerprint({
+        batteryId: batId,
+        batchId: activeRecord?.batchId || "Verified Battery Pack",
+        soh: assessment.soh,
+        grade: assessment.grade,
+        status: assessment.grade === "A" ? "EV READY" : assessment.grade === "B" ? "SECOND-LIFE REVIEW" : "SERVICE REVIEW",
+        lifecycle: prediction.lifecycle,
+        cycle: activeRecord?.cycle ?? telemetry.cycles,
+        temp: telemetry.temp,
+        volt: telemetry.volt,
+        resistance: telemetry.resistance,
+        fastCharge: telemetry.fastCharge,
+        modelLabel: rfModelLoaded ? "Random Forest (100 Trees)" : prediction ? "Ridge Regression" : "Safety Baseline",
+        issuedAt: new Date().toISOString().slice(0, 10),
+        issuer: user?.name ? `${user.name} (VoltPassport AI)` : "VoltPassport AI Authority",
+      });
+
       const saved = await savePassportToDb({
         batteryId: batId,
         batchId: activeRecord?.batchId || "Verified Battery Pack",
@@ -319,7 +337,7 @@ export function BatteryDatasetProvider({ children }: { children: React.ReactNode
         grade: assessment.grade,
         status: assessment.grade === "A" ? "EV READY" : assessment.grade === "B" ? "SECOND-LIFE REVIEW" : "SERVICE REVIEW",
         lifecycle: prediction.lifecycle,
-        hash: `SHA-256 ${batId}-${Date.now().toString(36).toUpperCase()}`,
+        hash: hash,
         primaryDriver: prediction.topDrivers[0]?.label || "Cycle history",
         confidence: prediction.confidence || "HIGH",
         telemetry: telemetry as any,
@@ -330,7 +348,7 @@ export function BatteryDatasetProvider({ children }: { children: React.ReactNode
     } catch (err: any) {
       return { success: false, error: err.message || "Failed to save passport to database." };
     }
-  }, [activeRecord, activeBatteryId, assessment, prediction, telemetry, user?.id, refreshSavedData]);
+  }, [activeRecord, activeBatteryId, assessment, prediction, telemetry, rfModelLoaded, user, refreshSavedData]);
 
   // Save telemetry assessment to PocketBase
   const saveCurrentAssessment = useCallback(async (assessmentData: any) => {

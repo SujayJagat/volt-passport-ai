@@ -37,6 +37,12 @@ export default function AppHeader() {
         <Link href="/passport" style={{ color: isCurrent("/passport") ? "var(--cyan)" : undefined, fontWeight: isCurrent("/passport") ? "bold" : "normal" }}>
           Passport
         </Link>
+        <Link href="/valuation" style={{ color: isCurrent("/valuation") ? "var(--cyan)" : undefined, fontWeight: isCurrent("/valuation") ? "bold" : "normal" }}>
+          Valuation
+        </Link>
+        <Link href="/verify" style={{ color: isCurrent("/verify") ? "var(--cyan)" : undefined, fontWeight: isCurrent("/verify") ? "bold" : "normal" }}>
+          Verify
+        </Link>
         <Link href="/dashboard" style={{ color: isCurrent("/dashboard") ? "var(--cyan)" : undefined, fontWeight: isCurrent("/dashboard") ? "bold" : "normal" }}>
           Workspace
         </Link>

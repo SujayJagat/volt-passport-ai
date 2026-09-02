@@ -281,9 +281,17 @@ export function Dashboard() {
                     </span>
                   </div>
                   <span style={{ fontSize: "13px", color: "#eef5f3" }}>SOH: <b style={{ color: "var(--cyan)" }}>{p.soh.toFixed(1)}%</b></span>
-                  <small style={{ color: "#78918f", fontSize: "11px", fontFamily: "monospace" }}>
-                    {p.lifecycle || p.status} · {new Date(p.created).toLocaleDateString()}
-                  </small>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "4px" }}>
+                    <small style={{ color: "#78918f", fontSize: "11px", fontFamily: "monospace" }}>
+                      {p.lifecycle || p.status} · {new Date(p.created).toLocaleDateString()}
+                    </small>
+                    <Link
+                      href={`/verify?hash=${encodeURIComponent(p.hash || "")}&id=${encodeURIComponent(p.batteryId)}`}
+                      style={{ fontSize: "11px", color: "var(--cyan)", textDecoration: "none", fontFamily: "monospace", display: "inline-flex", alignItems: "center", gap: "2px" }}
+                    >
+                      Verify ↗
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>

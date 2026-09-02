@@ -126,8 +126,20 @@ export async function getDbBatteryById(batteryId: string): Promise<DatasetBatter
   }
 }
 
-/** Save a digital battery passport record */
+/** Save a digital battery passport record (idempotent upsert by cryptographic hash) */
 export async function savePassportToDb(data: Partial<DbPassport>): Promise<DbPassport> {
+  // Check if a passport with this exact SHA-256 hash already exists in database
+  if (data.hash && data.hash.trim()) {
+    try {
+      const existing = await getDbPassportByHash(data.hash.trim());
+      if (existing) {
+        // Return existing record to prevent duplicate entries
+        return existing;
+      }
+    } catch {
+      // ignore lookup error and proceed
+    }
+  }
   return await pb.collection("passports").create<DbPassport>(data);
 }
 
@@ -144,6 +156,37 @@ export async function getPassportsFromDb(userId?: string): Promise<DbPassport[]>
     return list.items;
   } catch {
     return [];
+  }
+}
+
+/** Look up a passport record by its cryptographic hash or partial hash */
+export async function getDbPassportByHash(hash: string): Promise<DbPassport | null> {
+  try {
+    const cleanHash = hash.trim().toUpperCase();
+    // Try exact hash match or containing hash
+    const list = await pb.collection("passports").getList<DbPassport>(1, 1, {
+      filter: `hash ~ "${cleanHash}"`,
+      sort: "-created",
+    });
+    if (list.items.length > 0) return list.items[0];
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/** Look up the latest passport record for a battery ID */
+export async function getDbPassportByBatteryId(batteryId: string): Promise<DbPassport | null> {
+  try {
+    const cleanId = batteryId.trim().toUpperCase();
+    const list = await pb.collection("passports").getList<DbPassport>(1, 1, {
+      filter: `batteryId = "${cleanId}"`,
+      sort: "-created",
+    });
+    if (list.items.length > 0) return list.items[0];
+    return null;
+  } catch {
+    return null;
   }
 }
 
